@@ -18,6 +18,7 @@ Notes & Browser Compatibility
 -----------------------------
 
 * Safari 7 on OS X: ok
+* Safari on iOS 7: ok
 * Chrome: ok
 * Firefox:
   * WebVTT is currently unsupported but this is scheduled to ship in FF31 and can be enabled in about:config in FF30: https://bugzilla.mozilla.org/show_bug.cgi?id=629350#c56
