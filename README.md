@@ -14,10 +14,13 @@ Synopsis
 4. JavaScript creates an ordered list of track cues so the entire transcript may be displayed
 5. As the browser fires `cuechange` events, cues which overlap in time have the CSS class `highlighted` added and the `scrollTop` property of the cue list will be updated. If jQuery is present, the scrollTop change will be animated.
 
-Notes
------
+Notes & Browser Compatibility
+-----------------------------
 
-* Firefox does not currently support WebVTT but this is scheduled to ship in FF31
-* Firefox does not currently fire cuechange events
-* The demo will not work in Firefox on OS X until H.264 support ships
-* IE11 requires the subtitles to have the standard `text/vtt` MIME type
+* Safari 7 on OS X: ok
+* Chrome: ok
+* Firefox:
+  * WebVTT is currently unsupported but this is scheduled to ship in FF31 and can be enabled in about:config in FF30: https://bugzilla.mozilla.org/show_bug.cgi?id=629350#c56
+  * cuechange events are not yet dispatched: https://bugzilla.mozilla.org/show_bug.cgi?id=996331
+  * The demo will not work in Firefox on OS X until H.264 support ships
+* IE11: the subtitles must have the standard `text/vtt` MIME type
