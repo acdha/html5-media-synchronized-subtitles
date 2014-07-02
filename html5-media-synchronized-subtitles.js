@@ -53,7 +53,7 @@
                 endTime = Math.max(endTime, activeCues[i].endTime);
             }
 
-            var newScrollTop = displayList.scrollHeight;
+            var newScrollTop = -1;
 
             for (i = 0; i < trackList.length; i++) {
                 var li = trackList[i];
@@ -62,11 +62,18 @@
                     (li.endTime >= startTime && li.endTime <= endTime)) {
 
                     li.classList.add('highlighted');
-                    newScrollTop = Math.min(newScrollTop, li.offsetTop);
+
+                    if (newScrollTop > -1) {
+                        newScrollTop = Math.min(newScrollTop, li.offsetTop);
+                    } else {
+                        newScrollTop = li.offsetTop;
+                    }
                 }
             }
 
-            scrollIntoView(displayList, newScrollTop);
+            if (newScrollTop > -1) {
+                scrollIntoView(displayList, newScrollTop);
+            }
         });
     }
 
