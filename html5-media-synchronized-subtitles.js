@@ -18,7 +18,15 @@
         };
     }
 
-    function displayTextTrack(playerElement, textTrack, displayList) {
+    // IE 11 adds <br> tags which are unfortunately impossible to style in a way which is compatible
+    // with inline display:
+    var stripBreakTagRe = new RegExp(/<[/]?br>/g);
+    function stripBreaks(container) {
+        container.innerHTML = container.innerHTML.replace(stripBreakTagRe, ' ');
+    }
+
+    function displayTextTrack(playerElement, textTrack, displayList, cueElementCallback) {
+
         for (var i = 0; i < textTrack.cues.length; i++) {
             var li = document.createElement('li'),
                 cue = textTrack.cues[i];
@@ -27,6 +35,7 @@
             li.endTime = cue.endTime;
 
             li.appendChild(cue.getCueAsHTML());
+            cueElementCallback(li);
 
             displayList.appendChild(li);
         }
@@ -59,14 +68,14 @@
         });
     }
 
-    function loadTrack(trackElement) {
+    function loadTrack(trackElement, cueElementCallback) {
         var checkTrackState = function () {
             if (this.readyState <= 1) {
                 return;
             }
 
             if (this.readyState == 2) {
-                displayTextTrack(player, this.track, trackList);
+                displayTextTrack(player, this.track, trackList, cueElementCallback);
                 container.hidden = false;
             }
 
@@ -116,8 +125,16 @@
 
         var tracks = player.querySelectorAll('track');
 
+        // This callback will be called for each element created to hold a track cue so it can perform
+        // any post-display processing:
+        var cueElementCallback = stripBreaks;
+
+        if ('cueElementCallback' in container.dataset) {
+            cueElementCallback = window[container.dataset.cueElementCallback];
+        }
+
         for (i = 0; i < tracks.length; i++) {
-            loadTrack(tracks[i]);
+            loadTrack(tracks[i], cueElementCallback);
         }
     }
 })();
