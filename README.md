@@ -29,6 +29,9 @@ Notes & Browser Compatibility
   * cuechange events are not yet dispatched: https://bugzilla.mozilla.org/show_bug.cgi?id=996331
   * The demo will not work in Firefox on OS X until H.264 support ships
 * IE11:
+  * `<track>` is only supported on Windows 8
+  * `<track>` does not load cross-origin and does not support the `crossorigin` attribute:
+    https://connect.microsoft.com/IE/feedback/details/817222/ie-11-unable-to-load-captions-cross-domain-with-track
   * the subtitles must have the standard `text/vtt` MIME type
   * cuechange event dispatch will stop if subtitles are subsequently enabled and disabled using the browser's
     standard controls
