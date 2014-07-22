@@ -17,11 +17,18 @@ Synopsis
 Notes & Browser Compatibility
 -----------------------------
 
-* Safari 7 on OS X: ok
+* Safari 7 on OS X:
+  * cuechange event dispatch will stop if subtitles are subsequently enabled and disabled using the browser's
+    standard controls: https://bugs.webkit.org/show_bug.cgi?id=135159
 * Safari on iOS 7: ok
-* Chrome: ok
+* Chrome:
+  * cuechange event dispatch will stop if subtitles are subsequently enabled and disabled using the browser's
+    standard controls: https://code.google.com/p/chromium/issues/detail?id=396085
 * Firefox:
   * WebVTT is currently unsupported but this is scheduled to ship in FF31 and can be enabled in about:config in FF30: https://bugzilla.mozilla.org/show_bug.cgi?id=629350#c56
   * cuechange events are not yet dispatched: https://bugzilla.mozilla.org/show_bug.cgi?id=996331
   * The demo will not work in Firefox on OS X until H.264 support ships
-* IE11: the subtitles must have the standard `text/vtt` MIME type
+* IE11:
+  * the subtitles must have the standard `text/vtt` MIME type
+  * cuechange event dispatch will stop if subtitles are subsequently enabled and disabled using the browser's
+    standard controls

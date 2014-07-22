@@ -31,36 +31,16 @@
             displayList.appendChild(li);
         }
 
-        function clearHighlights() {
-            var highlights = displayList.querySelectorAll('.highlighted');
-
-            for (var i = 0; i < highlights.length; i++) {
-                highlights[i].classList.remove('highlighted');
-            }
-        }
-
         var trackList = displayList.children;
 
-        textTrack.addEventListener('cuechange', function (evt) {
-            clearHighlights();
-
-            var startTime = Number.MAX_VALUE,
-                endTime = Number.MIN_VALUE,
-                activeCues = evt.target.activeCues;
-
-            for (var i = 0; i < activeCues.length; i++) {
-                startTime = Math.min(startTime, activeCues[i].startTime);
-                endTime = Math.max(endTime, activeCues[i].endTime);
-            }
-
-            var newScrollTop = -1;
+        playerElement.addEventListener('timeupdate', function () {
+            var newScrollTop = -1,
+                currentTime = playerElement.currentTime;
 
             for (i = 0; i < trackList.length; i++) {
                 var li = trackList[i];
 
-                if ((li.startTime >= startTime && li.startTime <= endTime) ||
-                    (li.endTime >= startTime && li.endTime <= endTime)) {
-
+                if (currentTime >= li.startTime && currentTime <= li.endTime) {
                     li.classList.add('highlighted');
 
                     if (newScrollTop > -1) {
@@ -68,6 +48,8 @@
                     } else {
                         newScrollTop = li.offsetTop;
                     }
+                } else {
+                    li.classList.remove('highlighted');
                 }
             }
 
