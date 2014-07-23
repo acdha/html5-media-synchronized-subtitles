@@ -8,16 +8,6 @@
         return;
     }
 
-    var scrollIntoView = function (elem, newTop) {
-        elem.scrollTop = newTop;
-    };
-
-    if (!!window.jQuery) {
-        scrollIntoView = function (elem, newTop) {
-            jQuery(elem).animate({scrollTop: newTop});
-        };
-    }
-
     // IE 11 adds <br> tags which are unfortunately impossible to style in a way which is compatible
     // with inline display:
     var stripBreakTagRe = new RegExp(/<[/]?br>/g);
@@ -43,29 +33,39 @@
 
         var trackList = trackDisplayList.children;
 
+        var scrollIntoView;
+
+        if ('jQuery' in window) {
+            var $trackDisplayList = jQuery(trackDisplayList);
+
+            scrollIntoView = function (newTop) {
+                $trackDisplayList.stop(true, true).animate({scrollTop: newTop});
+            };
+        } else {
+            scrollIntoView = function (newTop) {
+                trackDisplayList.scrollTop = newTop;
+            };
+        }
+
         playerElement.addEventListener('timeupdate', function () {
-            var newScrollTop = -1,
+            var newScrollTop = 0,
                 currentTime = playerElement.currentTime;
 
             for (i = 0; i < trackList.length; i++) {
                 var li = trackList[i];
 
+                if (li.startTime <= currentTime) {
+                    newScrollTop = li.offsetTop;
+                }
+
                 if (currentTime >= li.startTime && currentTime <= li.endTime) {
                     li.classList.add('highlighted');
-
-                    if (newScrollTop > -1) {
-                        newScrollTop = Math.min(newScrollTop, li.offsetTop);
-                    } else {
-                        newScrollTop = li.offsetTop;
-                    }
                 } else {
                     li.classList.remove('highlighted');
                 }
             }
 
-            if (newScrollTop > -1) {
-                scrollIntoView(trackDisplayList, newScrollTop);
-            }
+            scrollIntoView(newScrollTop);
         });
     }
 
