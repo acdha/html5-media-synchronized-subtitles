@@ -33,13 +33,12 @@ cues can be styled using `display: inline` without line-breaks which cannot be o
   * The standard subtitle controls will set the track state to `disabled` when the user deselects it,
     and there is no way to detect when this happens without polling, preventing us from using the `cuechange`
     event: https://bugs.webkit.org/show_bug.cgi?id=135159
+
+    This is fixed in WebKit nightlies
 * Safari on iOS 7: ok
-* Chrome:
-  * The standard subtitle controls will set the track state to `disabled` when the user deselects it,
-    and there is no way to detect when this happens without polling, preventing us from using the `cuechange`
-    event: https://code.google.com/p/chromium/issues/detail?id=396085
+* Chrome: ok
 * Firefox:
-  * WebVTT is currently unsupported but this is scheduled to ship in FF31 and can be enabled in about:config in FF30: https://bugzilla.mozilla.org/show_bug.cgi?id=629350#c56
+  * WebVTT is currently unsupported prior to Firefox 31
   * cuechange events are not yet dispatched: https://bugzilla.mozilla.org/show_bug.cgi?id=996331
   * The demo will not work in Firefox on OS X until H.264 support ships
   * Unlike other browsers, the content returned by `getCueAsHTML` will be wrapped in a `<div>`
@@ -48,7 +47,4 @@ cues can be styled using `display: inline` without line-breaks which cannot be o
   * `<track>` does not load cross-origin and does not support the `crossorigin` attribute:
     https://connect.microsoft.com/IE/feedback/details/817222/ie-11-unable-to-load-captions-cross-domain-with-track
   * the subtitles must have the standard `text/vtt` MIME type
-  * The standard subtitle controls will set the track state to `disabled` when the user deselects it,
-    and there is no way to detect when this happens without polling, preventing us from using the `cuechange`
-    event
   * The content returned by `getCueAsHTML` will have newlines replaced with `<br>` tags
