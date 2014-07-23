@@ -25,22 +25,23 @@
         container.innerHTML = container.innerHTML.replace(stripBreakTagRe, ' ');
     }
 
-    function displayTextTrack(playerElement, textTrack, displayList, cueElementCallback) {
+    function displayTextTrack(playerElement, textTrack, trackDisplayList, cueElementCallback) {
 
         for (var i = 0; i < textTrack.cues.length; i++) {
             var li = document.createElement('li'),
                 cue = textTrack.cues[i];
 
+            li.dataset.startTime = cue.startTime;
             li.startTime = cue.startTime;
             li.endTime = cue.endTime;
 
             li.appendChild(cue.getCueAsHTML());
             cueElementCallback(li);
 
-            displayList.appendChild(li);
+            trackDisplayList.appendChild(li);
         }
 
-        var trackList = displayList.children;
+        var trackList = trackDisplayList.children;
 
         playerElement.addEventListener('timeupdate', function () {
             var newScrollTop = -1,
@@ -63,19 +64,19 @@
             }
 
             if (newScrollTop > -1) {
-                scrollIntoView(displayList, newScrollTop);
+                scrollIntoView(trackDisplayList, newScrollTop);
             }
         });
     }
 
-    function loadTrack(trackElement, cueElementCallback) {
+    function loadTrack(container, playerElement, trackElement, trackDisplayList, cueElementCallback) {
         var checkTrackState = function () {
             if (this.readyState <= 1) {
                 return;
             }
 
             if (this.readyState == 2) {
-                displayTextTrack(player, this.track, trackList, cueElementCallback);
+                displayTextTrack(playerElement, trackElement.track, trackDisplayList, cueElementCallback);
                 container.hidden = false;
             }
 
@@ -96,34 +97,35 @@
         checkTrackState.call(trackElement);
     }
 
-    var displayElements = document.querySelectorAll('.synchronized-subtitle-display');
-
-    for (var i = 0; i < displayElements.length; i++) {
-        var container = displayElements[i],
-            playerId = container.dataset.playerId;
+    function enableDisplay(container) {
+        var playerId = container.dataset.playerId;
 
         if (!playerId) {
             console.log('Container must specify data-player-id:', container);
-            continue;
+            return;
         }
 
         var player = document.getElementById(playerId);
         if (!player) {
             console.log('Unable to find player with ID: ' + playerId);
-            continue;
+            return;
         }
 
         var toggle = container.querySelector('.collapse-toggle');
         if (toggle) {
             toggle.addEventListener('click', function () {
                 container.classList.toggle('expanded');
-            }); // jshint ignore:line
+            });
         }
 
-        var trackList = document.createElement('ol');
-        container.appendChild(trackList);
+        var trackDisplayList = document.createElement('ol');
+        container.appendChild(trackDisplayList);
 
-        var tracks = player.querySelectorAll('track');
+        if (container.dataset.clickToTime === 'true') {
+            trackDisplayList.addEventListener('click', function (evt) {
+                player.currentTime = evt.target.startTime;
+            });
+        }
 
         // This callback will be called for each element created to hold a track cue so it can perform
         // any post-display processing:
@@ -133,8 +135,22 @@
             cueElementCallback = window[container.dataset.cueElementCallback];
         }
 
-        for (i = 0; i < tracks.length; i++) {
-            loadTrack(tracks[i], cueElementCallback);
+        var trackElements = player.querySelectorAll('track');
+        for (i = 0; i < trackElements.length; i++) {
+            var trackElement = trackElements[i];
+
+            if (trackElement.kind == "subtitles") {
+                loadTrack(container, player, trackElement, trackDisplayList, cueElementCallback);
+                return;
+            }
         }
+
+        console.warn('Unable to find a subtitle track!');
+    }
+
+    var displayElements = document.querySelectorAll('.synchronized-subtitle-display');
+
+    for (var i = 0; i < displayElements.length; i++) {
+        enableDisplay(displayElements[i]);
     }
 })();

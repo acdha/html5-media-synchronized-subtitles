@@ -22,10 +22,21 @@
 
                 position: relative;
                 overflow-y: scroll;
+
+                padding: 2px;
             }
 
             .synchronized-subtitle-display.expanded ol {
                 max-height: 30em;
+            }
+
+            .synchronized-subtitle-display li {
+                list-style-type: none;
+            }
+
+            .synchronized-subtitle-display li:before {
+                content: attr(data-start-time) "\": ";
+                font-weight: bold;
             }
 
             #cite {
@@ -40,15 +51,15 @@
 
             <video id="player" itemprop="video" crossorigin="anonymous" autoplay controls preload="auto" poster="http://testing.wdl.org/media/4048/thumbnail/616x510.jpg">
                 <source type="video/mp4" src="http://testing.wdl.org/media/4048/service/CA167_Ross_Allen_Reptile_Institute.mp4">
-                <track label="Subtitles" kind="subtitles" type="text/vtt" src="http://testing.wdl.org/media/4048/service/4048.vtt">
+                <track default label="Subtitles" kind="subtitles" type="text/vtt" src="http://testing.wdl.org/media/4048/service/4048.vtt">
             </video>
 
-            <div hidden class="synchronized-subtitle-display" data-player-id="player">
+            <div hidden class="synchronized-subtitle-display" data-player-id="player" data-click-to-time="true">
                 <h2 class="collapse-toggle">
                     Transcript
                 </h2>
             </div>
-            
+
             <p>
                 <a href="https://github.com/acdha/html5-media-synchronized-subtitles#notes--browser-compatibility">Notes and Browser Compatibility</a>
             </p>
