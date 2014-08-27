@@ -30,11 +30,7 @@ cues can be styled using `display: inline` without line-breaks which cannot be o
 ### Browsers ###
 
 * Safari 7 on OS X:
-  * The standard subtitle controls will set the track state to `disabled` when the user deselects it,
-    and there is no way to detect when this happens without polling, preventing us from using the `cuechange`
-    event: https://bugs.webkit.org/show_bug.cgi?id=135159
-
-    This is fixed in WebKit nightlies
+  * The standard subtitle controls will set the track state to `disabled` when the user deselects it, which will stop triggering `cuechange` events. We could solve this by listening for `change` events on the track list and resetting the mode to `hidden` but since Firefox doesn't support `cuechange` yet there's limited benefit.
 * Safari on iOS 7: ok
 * Chrome: ok
 * Firefox:
