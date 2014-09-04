@@ -1,7 +1,7 @@
 /* globals console, document, jQuery */
 
 (function () {
-    "use strict";
+    'use strict';
 
     if (!document.querySelectorAll || !document.addEventListener || !document.body.classList) {
         // Do nothing on old browsers
@@ -119,6 +119,7 @@
         }
 
         var trackDisplayList = document.createElement('ol');
+        trackDisplayList.setAttribute('dir', 'auto');
         container.appendChild(trackDisplayList);
 
         if (container.dataset.clickToTime === 'true') {
@@ -139,7 +140,7 @@
         for (i = 0; i < trackElements.length; i++) {
             var trackElement = trackElements[i];
 
-            if (trackElement.kind == "subtitles") {
+            if (trackElement.kind == 'subtitles') {
                 loadTrack(container, player, trackElement, trackDisplayList, cueElementCallback);
                 return;
             }
