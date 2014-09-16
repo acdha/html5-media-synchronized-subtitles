@@ -124,7 +124,11 @@
 
         if (container.dataset.clickToTime === 'true') {
             trackDisplayList.addEventListener('click', function (evt) {
-                player.currentTime = evt.target.startTime;
+                var startTime = evt.target.startTime || evt.target.parentNode.startTime;
+                if (!!startTime) {
+                    player.currentTime = startTime;
+                    return false;
+                }
             });
         }
 
