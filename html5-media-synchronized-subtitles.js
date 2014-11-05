@@ -3,7 +3,8 @@
 (function () {
     'use strict';
 
-    if (!document.querySelectorAll || !document.addEventListener || !document.body.classList) {
+    if (!document.querySelectorAll || !document.addEventListener || !document.documentElement ||
+        !document.documentElement.classList || !document.documentElement.dataset) {
         // Do nothing on old browsers
         return;
     }
