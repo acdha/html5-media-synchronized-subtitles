@@ -1,10 +1,15 @@
 /* globals console, document, jQuery */
 
-(function () {
+(function() {
     'use strict';
 
-    if (!document.querySelectorAll || !document.addEventListener || !document.documentElement ||
-        !document.documentElement.classList || !document.documentElement.dataset) {
+    if (
+        !document.querySelectorAll ||
+        !document.addEventListener ||
+        !document.documentElement ||
+        !document.documentElement.classList ||
+        !document.documentElement.dataset
+    ) {
         // Do nothing on old browsers
         return;
     }
@@ -16,8 +21,12 @@
         container.innerHTML = container.innerHTML.replace(stripBreakTagRe, ' ');
     }
 
-    function displayTextTrack(playerElement, textTrack, trackDisplayList, cueElementCallback) {
-
+    function displayTextTrack(
+        playerElement,
+        textTrack,
+        trackDisplayList,
+        cueElementCallback
+    ) {
         for (var i = 0; i < textTrack.cues.length; i++) {
             var li = document.createElement('li'),
                 cue = textTrack.cues[i];
@@ -39,16 +48,16 @@
         if ('jQuery' in window) {
             var $trackDisplayList = jQuery(trackDisplayList);
 
-            scrollIntoView = function (newTop) {
+            scrollIntoView = function(newTop) {
                 $trackDisplayList.stop(true, true).animate({scrollTop: newTop});
             };
         } else {
-            scrollIntoView = function (newTop) {
+            scrollIntoView = function(newTop) {
                 trackDisplayList.scrollTop = newTop;
             };
         }
 
-        playerElement.addEventListener('timeupdate', function () {
+        playerElement.addEventListener('timeupdate', function() {
             var newScrollTop = 0,
                 currentTime = playerElement.currentTime;
 
@@ -70,14 +79,25 @@
         });
     }
 
-    function loadTrack(container, playerElement, trackElement, trackDisplayList, cueElementCallback) {
-        var checkTrackState = function () {
+    function loadTrack(
+        container,
+        playerElement,
+        trackElement,
+        trackDisplayList,
+        cueElementCallback
+    ) {
+        var checkTrackState = function() {
             if (this.readyState <= 1) {
                 return;
             }
 
             if (this.readyState == 2) {
-                displayTextTrack(playerElement, trackElement.track, trackDisplayList, cueElementCallback);
+                displayTextTrack(
+                    playerElement,
+                    trackElement.track,
+                    trackDisplayList,
+                    cueElementCallback
+                );
                 container.hidden = false;
             }
 
@@ -114,7 +134,7 @@
 
         var toggle = container.querySelector('.collapse-toggle');
         if (toggle) {
-            toggle.addEventListener('click', function () {
+            toggle.addEventListener('click', function() {
                 container.classList.toggle('expanded');
             });
         }
@@ -124,8 +144,9 @@
         container.appendChild(trackDisplayList);
 
         if (container.dataset.clickToTime === 'true') {
-            trackDisplayList.addEventListener('click', function (evt) {
-                var startTime = evt.target.startTime || evt.target.parentNode.startTime;
+            trackDisplayList.addEventListener('click', function(evt) {
+                var startTime =
+                    evt.target.startTime || evt.target.parentNode.startTime;
                 if (!!startTime) {
                     player.currentTime = startTime;
                     return false;
@@ -146,7 +167,13 @@
             var trackElement = trackElements[i];
 
             if (trackElement.kind == 'subtitles') {
-                loadTrack(container, player, trackElement, trackDisplayList, cueElementCallback);
+                loadTrack(
+                    container,
+                    player,
+                    trackElement,
+                    trackDisplayList,
+                    cueElementCallback
+                );
                 return;
             }
         }
@@ -154,7 +181,9 @@
         console.warn('Unable to find a subtitle track!');
     }
 
-    var displayElements = document.querySelectorAll('.synchronized-subtitle-display');
+    var displayElements = document.querySelectorAll(
+        '.synchronized-subtitle-display'
+    );
 
     for (var i = 0; i < displayElements.length; i++) {
         enableDisplay(displayElements[i]);
