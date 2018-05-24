@@ -3,7 +3,7 @@ html5-media-synchronized-subtitles
 
 Pure HTML5 synchronized subtitles and movie display:
 
-* http://acdha.github.io/html5-media-synchronized-subtitles/demo.html
+* https://acdha.github.io/html5-media-synchronized-subtitles/demo.html
 * http://chris.improbable.org/experiments/browser/video/html5-media-synchronized-subtitles/
 
 Synopsis
