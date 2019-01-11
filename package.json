@@ -1,6 +1,6 @@
 {
-  "devDependencies": {
-    "jshint": "^2.9.5",
-    "prettier": "^1.11.1"
-  }
+    "devDependencies": {
+        "jshint": "^2.9.5",
+        "prettier": "^1.11.1"
+    }
 }
