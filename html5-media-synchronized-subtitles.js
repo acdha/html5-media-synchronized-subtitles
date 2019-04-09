@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* globals console, document, jQuery */
 
 (function() {
@@ -147,7 +148,7 @@
             trackDisplayList.addEventListener('click', function(evt) {
                 var startTime =
                     evt.target.startTime || evt.target.parentNode.startTime;
-                if (!!startTime) {
+                if (startTime) {
                     player.currentTime = startTime;
                     return false;
                 }
