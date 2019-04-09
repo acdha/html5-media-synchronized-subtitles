@@ -1,6 +1,11 @@
 {
-  "devDependencies": {
-    "jshint": "^2.9.5",
-    "prettier": "^1.11.1"
-  }
+    "devDependencies": {
+        "eslint": "^5.16.0",
+        "eslint-plugin-prettier": "^3.0.1",
+        "jshint": "^2.9.5",
+        "prettier": "^1.16.4",
+        "stylelint": "^9.10.1",
+        "stylelint-config-prettier": "^5.0.0",
+        "stylelint-config-recommended": "^2.1.0"
+    }
 }
