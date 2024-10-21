@@ -1,9 +1,7 @@
 {
     "maxlen": 110,
-
     "strict": true,
     "browser": true,
-
     "bitwise": true,
     "camelcase": false,
     "curly": true,
