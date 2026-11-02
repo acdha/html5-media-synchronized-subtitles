@@ -2,8 +2,8 @@
 
 Pure HTML5 synchronized subtitles and movie display:
 
--   https://acdha.github.io/html5-media-synchronized-subtitles/demo.html
--   http://chris.improbable.org/experiments/browser/video/html5-media-synchronized-subtitles/
+- https://acdha.github.io/html5-media-synchronized-subtitles/demo.html
+- http://chris.improbable.org/experiments/browser/video/html5-media-synchronized-subtitles/
 
 ## Synopsis
 
@@ -27,18 +27,18 @@ cues can be styled using `display: inline` without line-breaks which cannot be o
 
 ### Browsers
 
--   Safari 7 on OS X:
-    -   The standard subtitle controls will set the track state to `disabled` when the user deselects it, which will stop triggering `cuechange` events. We could solve this by listening for `change` events on the track list and resetting the mode to `hidden` but since Firefox doesn't support `cuechange` yet there's limited benefit.
--   Safari on iOS 7: ok
--   Chrome: ok
--   Firefox:
-    -   WebVTT is currently unsupported prior to Firefox 31
-    -   cuechange events are not yet dispatched: https://bugzilla.mozilla.org/show_bug.cgi?id=996331
-    -   The demo will not work in Firefox on OS X until H.264 support ships
-    -   Unlike other browsers, the content returned by `getCueAsHTML` will be wrapped in a `<div>`
--   IE11:
-    -   `<track>` is only supported on Windows 8
-    -   `<track>` does not load cross-origin and does not support the `crossorigin` attribute:
-        https://connect.microsoft.com/IE/feedback/details/817222/ie-11-unable-to-load-captions-cross-domain-with-track
-    -   the subtitles must have the standard `text/vtt` MIME type
-    -   The content returned by `getCueAsHTML` will have newlines replaced with `<br>` tags
+- Safari 7 on OS X:
+    - The standard subtitle controls will set the track state to `disabled` when the user deselects it, which will stop triggering `cuechange` events. We could solve this by listening for `change` events on the track list and resetting the mode to `hidden` but since Firefox doesn't support `cuechange` yet there's limited benefit.
+- Safari on iOS 7: ok
+- Chrome: ok
+- Firefox:
+    - WebVTT is currently unsupported prior to Firefox 31
+    - cuechange events are not yet dispatched: https://bugzilla.mozilla.org/show_bug.cgi?id=996331
+    - The demo will not work in Firefox on OS X until H.264 support ships
+    - Unlike other browsers, the content returned by `getCueAsHTML` will be wrapped in a `<div>`
+- IE11:
+    - `<track>` is only supported on Windows 8
+    - `<track>` does not load cross-origin and does not support the `crossorigin` attribute:
+      https://connect.microsoft.com/IE/feedback/details/817222/ie-11-unable-to-load-captions-cross-domain-with-track
+    - the subtitles must have the standard `text/vtt` MIME type
+    - The content returned by `getCueAsHTML` will have newlines replaced with `<br>` tags
