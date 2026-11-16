@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* globals console, document, jQuery */
 
-(function() {
+(function () {
     'use strict';
 
     if (
@@ -26,7 +26,7 @@
         playerElement,
         textTrack,
         trackDisplayList,
-        cueElementCallback
+        cueElementCallback,
     ) {
         for (var i = 0; i < textTrack.cues.length; i++) {
             var li = document.createElement('li'),
@@ -49,16 +49,16 @@
         if ('jQuery' in window) {
             var $trackDisplayList = jQuery(trackDisplayList);
 
-            scrollIntoView = function(newTop) {
+            scrollIntoView = function (newTop) {
                 $trackDisplayList.stop(true, true).animate({scrollTop: newTop});
             };
         } else {
-            scrollIntoView = function(newTop) {
+            scrollIntoView = function (newTop) {
                 trackDisplayList.scrollTop = newTop;
             };
         }
 
-        playerElement.addEventListener('timeupdate', function() {
+        playerElement.addEventListener('timeupdate', function () {
             var newScrollTop = 0,
                 currentTime = playerElement.currentTime;
 
@@ -85,9 +85,9 @@
         playerElement,
         trackElement,
         trackDisplayList,
-        cueElementCallback
+        cueElementCallback,
     ) {
-        var checkTrackState = function() {
+        var checkTrackState = function () {
             if (this.readyState <= 1) {
                 return;
             }
@@ -97,7 +97,7 @@
                     playerElement,
                     trackElement.track,
                     trackDisplayList,
-                    cueElementCallback
+                    cueElementCallback,
                 );
                 container.hidden = false;
             }
@@ -135,7 +135,7 @@
 
         var toggle = container.querySelector('.collapse-toggle');
         if (toggle) {
-            toggle.addEventListener('click', function() {
+            toggle.addEventListener('click', function () {
                 container.classList.toggle('expanded');
             });
         }
@@ -145,7 +145,7 @@
         container.appendChild(trackDisplayList);
 
         if (container.dataset.clickToTime === 'true') {
-            trackDisplayList.addEventListener('click', function(evt) {
+            trackDisplayList.addEventListener('click', function (evt) {
                 var startTime =
                     evt.target.startTime || evt.target.parentNode.startTime;
                 if (startTime) {
@@ -173,7 +173,7 @@
                     player,
                     trackElement,
                     trackDisplayList,
-                    cueElementCallback
+                    cueElementCallback,
                 );
                 return;
             }
@@ -183,7 +183,7 @@
     }
 
     var displayElements = document.querySelectorAll(
-        '.synchronized-subtitle-display'
+        '.synchronized-subtitle-display',
     );
 
     for (var i = 0; i < displayElements.length; i++) {
